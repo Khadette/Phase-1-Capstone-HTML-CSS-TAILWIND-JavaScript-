@@ -210,3 +210,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+// =========================
+// MOBILE NAVBAR TOGGLE
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById("menuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const menuIcon = document.getElementById("menuIcon");
+  const closeIcon = document.getElementById("closeIcon");
+
+  if (!menuBtn || !mobileMenu) return;
+
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+
+    menuIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
+  });
+});
