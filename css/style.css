@@ -1,0 +1,215 @@
+/* =========================================
+   Book Explorer — style.css
+   ========================================= */
+
+
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #0d0d0f;
+  color: #f3f4f6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Hero ---- */
+.hero-section {
+  background: linear-gradient(135deg, #0d0d0f 0%, #141418 50%, #1a1208 100%);
+  position: relative;
+}
+
+.hero-bg-pattern {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(245,158,11,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(245,158,11,0.06) 0%, transparent 40%);
+}
+
+/* ---- Fade-in animations ---- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
+}
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Loader spinner ---- */
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(245,158,11,0.15);
+  border-top-color: #f59e0b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ================================
+   BOOK CARD UI (RESTORED STYLE)
+================================ */
+
+.book-card {
+  background: #141418;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* COVER */
+.book-cover-wrap {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+
+.book-cover-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s ease;
+}
+
+.book-card:hover img {
+  transform: scale(1.08);
+}
+
+/* YEAR BADGE (TOP LEFT) */
+.book-year-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(245, 158, 11, 0.95);
+  color: black;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/* BODY */
+.book-card-body {
+  padding: 10px;
+}
+
+.book-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.book-author {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* FAVORITE BUTTON */
+.btn-favorite {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  background: #f59e0b;
+  color: black;
+  font-weight: bold;
+  transition: 0.2s;
+  border: none;
+}
+
+.btn-favorite:hover {
+  background: #fbbf24;
+}
+
+.btn-favorite.saved {
+  background: #22c55e;
+  color: white;
+}
+
+/* REMOVE BUTTON */
+.btn-remove {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+/* ---- Skeleton loaders ---- */
+.skeleton {
+  background: linear-gradient(90deg, #1c1c22 25%, #26262e 50%, #1c1c22 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 16px;
+}
+
+.skeleton-card-item {
+  aspect-ratio: 2/3;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #1c1c22 25%, #26262e 50%, #1c1c22 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---- About page cards ---- */
+.about-card {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.about-card:hover {
+  border-color: rgba(245,158,11,0.2);
+  transform: translateY(-2px);
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0d0f; }
+::-webkit-scrollbar-thumb { background: #26262e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+/* ---- Toast ---- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #26262e;
+  border: 1px solid rgba(245,158,11,0.3);
+  color: #f3f4f6;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  z-index: 9999;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  max-width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.toast.success { border-color: rgba(34,197,94,0.3); }
+.toast.error { border-color: rgba(239,68,68,0.3); }

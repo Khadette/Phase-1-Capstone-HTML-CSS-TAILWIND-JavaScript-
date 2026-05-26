@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Explorer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ink': '#0d0d0f',
+            'ink-2': '#141418',
+            'ink-3': '#1c1c22',
+            'ink-4': '#26262e',
+            'amber': '#f59e0b',
+            'amber-soft': '#fbbf24',
+            'cream': '#fef3c7',
+            'muted': '#6b7280',
+            'muted-2': '#9ca3af',
+          },
+          fontFamily: {
+            'display': ['"Playfair Display"', 'serif'],
+            'body': ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-ink text-gray-100 font-body min-h-screen">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-indigo-950/90 backdrop-blur-md border-b border-indigo-400/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 group">
+          <span class="text-amber-400 text-2xl">📚</span>
+          <span class="font-display text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
+            Book<span class="text-amber-400">Explorer</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html" class="nav-link active text-amber-400 font-medium text-sm tracking-wide uppercase">Home</a>
+          <a href="favorites.html" class="nav-link text-white/60 hover:text-white font-medium text-sm tracking-wide uppercase transition-colors">Favorites</a>
+          <a href="about.html" class="nav-link text-white/60 hover:text-white font-medium text-sm tracking-wide uppercase transition-colors">About</a>
+        </div>
+
+        <!-- Hamburger -->
+        <button id="menuBtn" class="md:hidden text-muted-2 hover:text-white transition-colors p-2">
+          <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-ink-2 border-t border-white/5">
+      <div class="px-4 py-4 space-y-3">
+        <a href="index.html" class="block text-amber font-medium text-sm tracking-wide uppercase py-2">Home</a>
+        <a href="favorites.html" class="block text-muted-2 hover:text-white font-medium text-sm tracking-wide uppercase py-2 transition-colors">Favorites</a>
+        <a href="about.html" class="block text-muted-2 hover:text-white font-medium text-sm tracking-wide uppercase py-2 transition-colors">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section pt-16 min-h-[500px] flex items-center relative overflow-hidden">
+    <div class="hero-bg-pattern absolute inset-0 opacity-5"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/0 via-ink/40 to-ink"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <p class="text-amber text-sm font-medium tracking-[0.3em] uppercase mb-4 fade-in">Discover Your Next Read</p>
+      <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight fade-in stagger-1">
+        Explore the World<br><span class="text-amber italic">Through Books</span>
+      </h1>
+      <p class="text-muted-2 text-lg max-w-xl mx-auto mb-10 fade-in stagger-2">Search millions of titles from the 
+        <a href="https://openlibrary.org" target="_blank" class="text-amber hover:underline">
+          Open Library
+        </a>
+        . Discover trending reads, timeless classics, and hidden gems.</p>
+
+      <!-- Search Bar -->
+      <div class="max-w-2xl mx-auto fade-in stagger-3">
+        <div class="relative flex items-center bg-ink-3 border border-white/10 rounded-2xl overflow-hidden focus-within:border-amber/50 transition-colors shadow-2xl">
+          <span class="pl-5 text-muted">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </span>
+          <input id="searchInput" type="text" placeholder="Search by title, author, or subject…"
+            class="flex-1 bg-transparent text-white placeholder-muted px-4 py-4 text-sm outline-none" />
+          <button id="searchBtn" class="m-2 bg-amber hover:bg-amber-soft text-ink font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+
+    <!-- Loading State -->
+    <div id="loadingState" class="py-20 text-center hidden">
+      <div class="inline-flex flex-col items-center gap-4">
+        <div class="loader"></div>
+        <p class="text-muted-2 text-sm">Fetching books from Open Library…</p>
+      </div>
+    </div>
+
+    <!-- No Results -->
+    <div id="noResults" class="py-20 text-center hidden">
+      <p class="text-5xl mb-4">📭</p>
+      <h3 class="font-display text-2xl text-white mb-2">No results found</h3>
+      <p class="text-muted-2">Try a different search term or browse the categories below.</p>
+    </div>
+
+    <!-- Search Results Section -->
+    <section id="searchResultsSection" class="hidden">
+      <div class="flex items-center justify-between mb-8 pt-12">
+        <div>
+          <h2 class="font-display text-3xl font-bold text-white">Search Results</h2>
+          <p id="searchResultsCount" class="text-muted text-sm mt-1"></p>
+        </div>
+        <button id="clearSearch" class="text-amber text-sm hover:underline">← Back to categories</button>
+      </div>
+      <div id="searchResultsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+    </section>
+
+    <!-- Categories -->
+    <div id="categorySections">
+      <!-- Trending -->
+      <section class="category-section pt-14">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-2xl">🔥</span>
+          <div>
+            <h2 class="font-display text-3xl font-bold text-white">Trending Now</h2>
+            <p class="text-muted text-sm mt-1">What everyone is reading this season</p>
+          </div>
+        </div>
+        <div id="trendingGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+          <div class="skeleton-card col-span-2 sm:col-span-3 lg:col-span-4 xl:col-span-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+        </div>
+      </section>
+
+      <!-- Romance -->
+      <section class="category-section pt-14">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-2xl">💕</span>
+          <div>
+            <h2 class="font-display text-3xl font-bold text-white">Romance</h2>
+            <p class="text-muted text-sm mt-1">Stories of love, longing, and connection</p>
+          </div>
+        </div>
+        <div id="romanceGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+      </section>
+
+      <!-- Classics -->
+      <section class="category-section pt-14">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-2xl">🏛️</span>
+          <div>
+            <h2 class="font-display text-3xl font-bold text-white">Timeless Classics</h2>
+            <p class="text-muted text-sm mt-1">Masterworks that shaped literature forever</p>
+          </div>
+        </div>
+        <div id="classicsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+      </section>
+
+      <!-- Science Fiction -->
+      <section class="category-section pt-14">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-2xl">🚀</span>
+          <div>
+            <h2 class="font-display text-3xl font-bold text-white">Science Fiction</h2>
+            <p class="text-muted text-sm mt-1">Bold visions of other worlds and futures</p>
+          </div>
+        </div>
+        <div id="scifiGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+      </section>
+
+      <!-- Mystery & Thriller -->
+      <section class="category-section pt-14">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-2xl">🔍</span>
+          <div>
+            <h2 class="font-display text-3xl font-bold text-white">Mystery & Thriller</h2>
+            <p class="text-muted text-sm mt-1">Page-turners that keep you guessing</p>
+          </div>
+        </div>
+        <div id="mysteryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"></div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 bg-ink-2 mt-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    
+    <div class="flex items-center justify-center text-center">
+      <p class="text-muted text-sm">
+        Powered by 
+        <a href="https://openlibrary.org" target="_blank" class="text-amber hover:underline">
+          Open Library
+        </a>
+        · Built with ❤️ for book lovers
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="js/fetchBooks.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/favorites.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+
+
+
