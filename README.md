@@ -9,4 +9,6 @@ Book Explorer is a responsive web application that allows users to search and ex
 - ❤️ Add and remove favorite books
 - 💾 Favorites saved using Local Storage
 - 📱 Responsive design for mobile and desktop
-- 🌐 API integration with Open Library
+- 🌐 API integration with Open Library  
+
+##
